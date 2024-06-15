@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
@@ -20,9 +20,9 @@ contract Bank is ReentrancyGuard {
         uint256 balance = balances[msg.sender];
         require(balance >= amount, "Insufficient balance");
 
-        // Even though the withdraw function is already modified with nonReentrant,
-        // the external call here can still enable the counterparty to initiate calls to other functions,
-        // such as the transfer function below, which constitutes a cross-function re-entrancy attack
+        //q: Although this function has been modified with nonReentrant, what if
+        // the other party calls other function of the contract? For example, the
+        // transfer function below
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Withdraw failed");
         balances[msg.sender] = balance - amount;

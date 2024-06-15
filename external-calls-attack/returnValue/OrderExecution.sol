@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
 import "./IOrderCallbackRecevier.sol";
 
@@ -19,9 +19,8 @@ contract OrderExecution {
                 gas: order.callbackGasLimit
             }()
         {} catch (
-            bytes memory revertData
-        ) //We cannot control the callbackContract to return the value we expect
-        {
+            bytes memory revertData //q: What happens if this revertData is very large?
+        ) {
             emit AfterOrderExecution(order.orderId, string(revertData));
         }
     }

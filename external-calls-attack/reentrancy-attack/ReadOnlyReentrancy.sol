@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
@@ -12,22 +12,18 @@ contract BankReadOnly is ReentrancyGuard {
         balances[msg.sender] += msg.value;
     }
 
-    function withdraw(uint256 amount) external {
-        require(isAllowWithdraw(amount), "Insufficient balance");
+    function withdraw(uint256 amount) external nonReentrant {
+        uint256 balance = balances[msg.sender];
+        require(balance >= amount, "Insufficient balance");
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Withdraw failed");
         balances[msg.sender] -= amount;
     }
 
-    function isAllowWithdraw(uint256 amount) public view returns (bool) {
-        uint256 balance = balances[msg.sender];
-        if (balance >= amount) return true;
-        return false;
-    }
-
-    //If a third-party system calls this function to obtain balance information,
-    //attackers may attempt to call the withdraw function within an atomic transaction,
-    //exploiting outdated information from the third-party system to arbitrage after gaining transaction execution rights.
+    //q: Assuming a third-party system calls this function to obtain balance information.
+    // Attackers may attempt to call this function after calls the withdraw function within
+    // an atomic transaction, is the balance they obtained correct? Will the attackers exploit
+    // this for arbitrage?
     function balanceOf(address owner) external view returns (uint256) {
         return balances[owner];
     }

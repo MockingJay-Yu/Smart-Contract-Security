@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.25;
+pragma solidity ^0.8.0;
 
 contract Vault {
     mapping(address => uint256) public balances;
@@ -17,8 +17,8 @@ contract Vault {
     function withdraw(uint256 amount) external {
         uint256 balance = balances[msg.sender];
         require(balance >= amount, "Insufficient balance");
-        //This external call can trigger a reciprocal withdraw function call from the counterparty,
-        //constituting a reentrancy attack.
+        //q: This external call means we hand over the execution rights of the transaction to
+        // the msg.sender, so what happens if the other party calls this function again?
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Withdraw failed");
         balances[msg.sender] = balance - amount;
