@@ -21,11 +21,14 @@ In the `Liquidation` smart contract, it simulated a contract where users can bui
    - How much does it cost for users to do that?
      if users can do it and it's very cheap, so there may be a potential DoS attack here.
 2. Look out for any external calls, you should ask yourself the following question:
+
    - Is there a way for these calls to fail?
    - If they do fail, will it cause the transaction to roll back?
    - How can that actually affect the system?
    - Will it has a negative impact on the system?
-     There are several different ways to force external calls to fail:
+
+   There are several different ways to force external calls to fail:
+
    - **Sending ether to a contract that does not accept it**
    - **Calling a function that does not exist**
    - **The external call execution runs out of gas**
