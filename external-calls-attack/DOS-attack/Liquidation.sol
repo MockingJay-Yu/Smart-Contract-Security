@@ -34,7 +34,7 @@ contract Liquidation {
         uint256 amount = positions[accountToLiquidate].collateral;
 
         //q: What happens if the contract of accountToLiquidate cannot receive any
-        // ETH(that means the contract has not receive or fallback function)?
+        // ETH(that means the contract doesn't have receive and fallback function)?
         (bool success, bytes memory data) = payable(accountToLiquidate).call{
             value: amount
         }("");
