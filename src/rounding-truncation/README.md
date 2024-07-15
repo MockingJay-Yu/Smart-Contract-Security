@@ -7,7 +7,7 @@ In the `IncreasePosition` smart contract, we updated the position information in
 - orderSize = 1e10
 - executePrice = 101e8
 
-Therefore, the updatedAvgPrice = (1e18 _ 100e8 + 1e10 _ 101e8) / (1e18 + 1e10) = 100e8.
+Therefore, the `updatedAvgPrice = (1e18 * 100e8 + 1e10 * 101e8) / (1e18 + 1e10) = 100e8`.
 This rounding truncation may provides attackers with the opportunity to manipulate their average price and make risk free profits.
 
 # Recommendation
