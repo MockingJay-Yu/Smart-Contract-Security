@@ -15,7 +15,7 @@ contract BankReadOnly is ReentrancyGuard {
     function withdraw(uint256 amount) external nonReentrant {
         uint256 balance = balances[msg.sender];
         require(balance >= amount, "Insufficient balance");
-        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        (bool success,) = payable(msg.sender).call{value: amount}("");
         require(success, "Withdraw failed");
         balances[msg.sender] -= amount;
     }

@@ -15,11 +15,7 @@ contract Liquidation {
 
     error LiquidateError(address receiver, uint256 amount);
 
-    function setPosition(
-        uint256 collateral,
-        uint256 debt,
-        uint256 liquidationPrice
-    ) external {
+    function setPosition(uint256 collateral, uint256 debt, uint256 liquidationPrice) external {
         //...
         //Various operations for setting positions
         //...
@@ -35,9 +31,7 @@ contract Liquidation {
 
         //q: What happens if the contract of accountToLiquidate cannot receive any
         // ETH(that means the contract doesn't have receive and fallback function)?
-        (bool success, bytes memory data) = payable(accountToLiquidate).call{
-            value: amount
-        }("");
+        (bool success, bytes memory data) = payable(accountToLiquidate).call{value: amount}("");
 
         if (success) return;
 

@@ -23,7 +23,7 @@ contract Bank is ReentrancyGuard {
         //q: Although this function has been modified with nonReentrant, what if
         // the other party calls other function of the contract? For example, the
         // transfer function below
-        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        (bool success,) = payable(msg.sender).call{value: amount}("");
         require(success, "Withdraw failed");
         balances[msg.sender] = balance - amount;
     }

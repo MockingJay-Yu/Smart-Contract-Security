@@ -8,7 +8,7 @@ contract OrderExecutionAttack is IOrderCallbackRecevier {
     function afterOrderExecution() external pure {
         bytes memory largeArray = new bytes(1000);
 
-        for (uint i = 0; i < 1000; i++) {
+        for (uint256 i = 0; i < 1000; i++) {
             largeArray[i] = bytes1(uint8(i % 256));
         }
         revert(string(largeArray));

@@ -14,13 +14,11 @@ contract OrderExecution {
     event AfterOrderExecution(uint256 orderId, string revertReason);
 
     function afterOrderExecution(Order memory order) internal {
-        try
-            IOrderCallbackRecevier(order.callbackContract).afterOrderExecution{
-                gas: order.callbackGasLimit
-            }()
-        {} catch (
-            bytes memory revertData //q: What happens if this revertData is very large?
-        ) {
+        try IOrderCallbackRecevier(order.callbackContract).afterOrderExecution{gas: order.callbackGasLimit}() {}
+        catch (
+            bytes memory revertData
+        ) //q: What happens if this revertData is very large?
+        {
             emit AfterOrderExecution(order.orderId, string(revertData));
         }
     }
