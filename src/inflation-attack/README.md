@@ -11,4 +11,13 @@ In `Vault` contract, users can deposit assets and obtain corresponding shares th
 
 # Recommendation
 
-Vault deployment personnel can make price of share manipulation unfeasible by storing an initial asset and permanently locking the corresponding share.
+- Revert if the amount received is not within a slippage tolerance.
+- The deployer should deposit enough assets into the pool such that doing this inflation attack would be too expensive.
+- Add "virtual liquidity" to the vault so the pricing behaves as if the pool had been deployed with enough assets.
+Here is OpenZeppelin's implementation of virtual liquidity in ERC4626:
+```solidity
+function _convertToAssets(uint256 shares, Math.Rounding rounding) internal view virtual returns (uint256){
+        return shares.mulDiv(totalAssets() + 1, totalSupply() + 10 ** _decimalsOffset(), rounding);
+}
+```
+Effectively, it is making the numberator 1000 times larger when we set `_decimalOffset()` to be 3. This forces the attacker to make a donation 1000 times as large, which disincentivizes them from conducting the attack.
