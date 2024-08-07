@@ -31,11 +31,13 @@
 - 当且仅当 $r = r'$，签名有效，以下是证明过程：
   
 $$
+\begin{aligned}
 R' = (s^{-1}m) \cdot G + (s^{-1}r) \cdot Q \\
 = (s^{-1}m) \cdot G + (s^{-1}r \cdot p) \cdot G \\
 = (s^{-1}(m+r \cdot p)) \cdot G \\
 = k \cdot G \\
 = R
+\end{aligned}
 $$
 
 ### ECDSA签名可塑性
@@ -43,11 +45,13 @@ $$
 ECDSA签名可塑性指的是对于一个给定的消息和签名，存在两个可以验证通过的签名。换句话说，签名不是唯一的。用上面的例子，$(r, n-s)$也是有效的签名。以下是证明过程：
 
 $$
+\begin{aligned}
 n - s \mod n = k^{-1}(m + r \cdot p) \mod n \\
 k(-s) \mod n = (m + r \cdot p) \mod n \\
 -s \cdot k \cdot G = m \cdot G + r \cdot p \cdot G \\
 -s \cdot k \cdot G = m \cdot G + r \cdot Q \\
 -R = s^{-1}m \cdot G + (s^{-1}r) \cdot Q
+\end{aligned}
 $$
 
 - 从上面证明推导出来发现 $-R$ 的公式和上面 $R'$ 是一样的，$-R$ 的横坐标和 $R'$ 是一样的，纵坐标是一个负数
