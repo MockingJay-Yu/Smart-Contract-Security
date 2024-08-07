@@ -32,11 +32,11 @@
   
 $$
 \begin{aligned}
-R' = (s^{-1}m) \cdot G + (s^{-1}r) \cdot Q \\
-= (s^{-1}m) \cdot G + (s^{-1}r \cdot p) \cdot G \\
-= (s^{-1}(m+r \cdot p)) \cdot G \\
-= k \cdot G \\
-= R
+R' &= (s^{-1}m) \cdot G + (s^{-1}r) \cdot Q \\
+&= (s^{-1}m) \cdot G + (s^{-1}r \cdot p) \cdot G \\
+&= (s^{-1}(m+r \cdot p)) \cdot G \\
+&= k \cdot G \\
+&= R
 \end{aligned}
 $$
 
@@ -46,11 +46,11 @@ ECDSA签名可塑性指的是对于一个给定的消息和签名，存在两个
 
 $$
 \begin{aligned}
-n - s \mod n = k^{-1}(m + r \cdot p) \mod n \\
-k(-s) \mod n = (m + r \cdot p) \mod n \\
--s \cdot k \cdot G = m \cdot G + r \cdot p \cdot G \\
--s \cdot k \cdot G = m \cdot G + r \cdot Q \\
--R = s^{-1}m \cdot G + (s^{-1}r) \cdot Q
+n - s \mod n &= k^{-1}(m + r \cdot p) \mod n \\
+k(-s) \mod n &= (m + r \cdot p) \mod n \\
+-s \cdot k \cdot G &= m \cdot G + r \cdot p \cdot G \\
+-s \cdot k \cdot G &= m \cdot G + r \cdot Q \\
+-R &= s^{-1}m \cdot G + (s^{-1}r) \cdot Q
 \end{aligned}
 $$
 
